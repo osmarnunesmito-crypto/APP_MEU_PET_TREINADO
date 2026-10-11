@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#344b35">
+<meta name="description" content="Guia prático de reforço positivo para treinar seu cão em 21 dias.">
+<title>Cão Obediente em 21 Dias</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--olive:#344b35;--olive2:#58734f;--cream:#f7f7f0;--amber:#f2a541}
+*{box-sizing:border-box}body{font-family:Inter,system-ui,sans-serif;background:var(--cream);color:#243126}
+button{transition:transform .16s ease,background .16s ease,box-shadow .16s ease}button:active{transform:scale(.98)}
+.view{animation:fadeIn .25s ease}@keyframes fadeIn{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+.progress-fill{transition:width .45s ease}.day-card{min-height:112px}.day-card:disabled{cursor:not-allowed;opacity:.62}
+.check-row input{accent-color:var(--olive2);width:18px;height:18px;flex-shrink:0}
+.toast{animation:toastIn .3s ease}@keyframes toastIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.confetti{position:fixed;top:-12px;width:8px;height:12px;z-index:100;pointer-events:none;animation:fall 1.8s linear forwards}@keyframes fall{to{transform:translateY(110vh) rotate(650deg);opacity:0}}
+@media(min-width:768px){.app-shell{max-width:1100px;margin:auto}}
+</style>
+</head>
+<body class="min-h-screen">
+<header class="sticky top-0 z-40 border-b border-black/5 bg-white/90 backdrop-blur">
+  <div class="app-shell mx-auto flex items-center justify-between px-4 py-3">
+    <button class="flex items-center gap-2 text-left" onclick="showView('home')" aria-label="Ir para início">
+      <span class="grid h-10 w-10 place-items-center rounded-2xl bg-[#344b35] text-xl">🐾</span>
+      <span><span class="block text-sm font-extrabold tracking-tight text-[#344b35]">Cão Obediente</span><span class="block text-xs text-gray-500">em 21 dias</span></span>
+    </button>
+    <button onclick="showView('track')" class="rounded-full bg-[#344b35] px-4 py-2 text-sm font-bold text-white hover:bg-[#58734f]">Minha trilha</button>
+  </div>
+</header>
+
+<main class="app-shell px-4 pb-28 pt-5 md:px-6 md:pt-8">
+  <section id="homeView" class="view">
+    <div class="relative overflow-hidden rounded-[2rem] bg-[#344b35] px-6 py-8 text-white shadow-lg md:grid md:grid-cols-2 md:items-center md:gap-8 md:px-10 md:py-12">
+      <div class="relative z-10">
+        <span class="mb-4 inline-flex rounded-full bg-white/15 px-3 py-1 text-xs font-bold tracking-wide text-amber-200">GUIA PRÁTICO • 21 DIAS</span>
+        <h1 class="max-w-xl text-3xl font-extrabold leading-tight md:text-5xl">Um cão mais atento, com <span class="text-amber-300">carinho e consistência.</span></h1>
+        <p class="mt-4 max-w-lg text-sm leading-6 text-white/80 md:text-base">Treinos curtos para construir bons hábitos sem gritos, medo ou castigos. Um passo de cada vez, no ritmo do seu cão.</p>
+        <button onclick="startChallenge()" class="mt-6 rounded-2xl bg-[#f2a541] px-5 py-3.5 font-extrabold text-[#2e392b] shadow-md hover:bg-amber-300">Começar o desafio de 21 dias <span aria-hidden="true">→</span></button>
+        <p class="mt-3 text-xs text-white/60">⏱️ 5–10 minutos por sessão • Recompensas positivas</p>
+      </div>
+      <div class="mt-7 flex min-h-48 items-center justify-center md:mt-0">
+        <div class="relative grid h-52 w-52 place-items-center rounded-full bg-white/10 md:h-64 md:w-64">
+          <div class="absolute inset-4 rounded-full border border-white/20"></div>
+          <span class="text-8xl md:text-9xl" role="img" aria-label="Cachorro feliz">🐶</span>
+          <span class="absolute bottom-3 right-0 rounded-2xl bg-white px-4 py-2 text-sm font-extrabold text-[#344b35] shadow">Aprender brincando ✨</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-8">
+      <h2 class="text-xl font-extrabold text-[#344b35] md:text-2xl">Você se identifica com alguma dessas situações?</h2>
+      <p class="mt-2 text-sm text-gray-600">Toque em um cartão para ver uma primeira orientação.</p>
+      <div class="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        <button class="pain-card rounded-2xl border border-gray-100 bg-white p-4 text-left shadow-sm hover:-translate-y-0.5 hover:shadow-md" onclick="togglePain(this,'chamado')"><span class="text-2xl">📣</span><span class="mt-2 block font-bold">Ele me ignora quando chamo</span><span class="pain-answer mt-2 hidden text-sm leading-5 text-gray-600">Comece dentro de casa, a poucos passos. Diga o nome uma vez, recompense qualquer atenção e aumente a distância aos poucos.</span></button>
+        <button class="pain-card rounded-2xl border border-gray-100 bg-white p-4 text-left shadow-sm hover:-translate-y-0.5 hover:shadow-md" onclick="togglePain(this,'visitas')"><span class="text-2xl">🚪</span><span class="mt-2 block font-bold">Pula nas visitas</span><span class="pain-answer mt-2 hidden text-sm leading-5 text-gray-600">Prepare petiscos antes da chegada. Recompense quatro patas no chão e peça às visitas que aguardem até ele se acalmar.</span></button>
+        <button class="pain-card rounded-2xl border border-gray-100 bg-white p-4 text-left shadow-sm hover:-translate-y-0.5 hover:shadow-md" onclick="togglePain(this,'medo')"><span class="text-2xl">💚</span><span class="mt-2 block font-bold">Tenho medo de errar ou assustá-lo</span><span class="pain-answer mt-2 hidden text-sm leading-5 text-gray-600">Faça sessões curtas, termine com uma conquista fácil e nunca force contato. Se ele demonstrar medo, aumente a distância e reduza a dificuldade.</span></button>
+      </div>
+    </div>
+
+    <div class="mt-8 grid gap-4 sm:grid-cols-3">
+      <div class="rounded-2xl bg-white p-5 shadow-sm"><span class="text-2xl">🎯</span><h3 class="mt-2 font-bold">Metas pequenas</h3><p class="mt-1 text-sm text-gray-600">Um objetivo simples por dia, sem pressa.</p></div>
+      <div class="rounded-2xl bg-white p-5 shadow-sm"><span class="text-2xl">🦴</span><h3 class="mt-2 font-bold">Recompensa na hora</h3><p class="mt-1 text-sm text-gray-600">Petiscos, brincadeiras ou carinho que seu cão goste.</p></div>
+      <div class="rounded-2xl bg-white p-5 shadow-sm"><span class="text-2xl">📈</span><h3 class="mt-2 font-bold">Acompanhe a evolução</h3><p class="mt-1 text-sm text-gray-600">Seu progresso fica salvo neste navegador.</p></div>
+    </div>
+  </section>
+
+  <section id="trackView" class="view hidden">
+    <div class="flex flex-col justify-between gap-3 sm:flex-row sm:items-end">
+      <div><p class="text-sm font-bold uppercase tracking-wider text-[#71866b]">Sua jornada</p><h1 class="mt-1 text-3xl font-extrabold text-[#344b35]">Trilha dos 21 dias</h1><p class="mt-2 text-sm text-gray-600">Constância vale mais do que perfeição.</p></div>
+      <button onclick="resetProgress()" class="self-start rounded-xl border border-gray-200 bg-white px-3 py-2 text-xs font-bold text-gray-600 hover:bg-red-50 hover:text-red-700">Reiniciar progresso</button>
+    </div>
+    <div class="mt-6 rounded-3xl bg-white p-5 shadow-sm">
+      <div class="flex items-end justify-between gap-3"><div><p class="text-sm text-gray-500">Progresso geral</p><p class="mt-1 text-2xl font-extrabold text-[#344b35]" id="progressText">0 de 21 dias</p></div><p class="text-2xl font-extrabold text-[#e69a2c]" id="progressPct">0%</p></div>
+      <div class="mt-4 h-3 overflow-hidden rounded-full bg-gray-100"><div id="progressBar" class="progress-fill h-full rounded-full bg-[#6c8a5d]" style="width:0%"></div></div>
+      <div class="mt-4 flex flex-wrap gap-4 text-sm text-gray-600"><span>✅ <b id="completedCount">0</b> concluídos</span><span>🔥 <b id="streakCount">0</b> dias seguidos</span><span>🔓 <b id="unlockedCount">1</b> liberado(s)</span></div>
+    </div>
+    <div id="daysGrid" class="mt-6 space-y-6"></div>
+    <div class="mt-6 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm leading-6 text-amber-950"><b>Importante:</b> cada cão aprende em um ritmo. Se um exercício estiver difícil, repita o dia anterior e reduza a dificuldade. Isso não é uma corrida.</div>
+  </section>
+
+  <section id="lessonView" class="view hidden">
+    <button onclick="showView('track')" class="mb-4 text-sm font-bold text-[#58734f] hover:underline">← Voltar à trilha</button>
+    <div id="lessonContent"></div>
+  </section>
+
+  <section id="quickView" class="view hidden">
+    <p class="text-sm font-bold uppercase tracking-wider text-[#71866b]">Ajuda prática</p>
+    <h1 class="mt-1 text-3xl font-extrabold text-[#344b35]">Soluções rápidas</h1>
+    <p class="mt-2 text-sm text-gray-600">Orientações iniciais para situações comuns. Treine primeiro em um ambiente tranquilo.</p>
+    <div class="mt-6 space-y-3" id="quickSolutions"></div>
+    <div class="mt-5 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm leading-6 text-amber-950"><b>Segurança em primeiro lugar:</b> se houver rosnados intensos, mordidas, pânico ou risco para alguém, evite punições e procure um médico-veterinário e um profissional qualificado em comportamento canino que trabalhe sem aversivos.</div>
+  </section>
+
+  <section id="aboutView" class="view hidden">
+    <h1 class="text-3xl font-extrabold text-[#344b35]">Como usar o guia</h1>
+    <div class="mt-5 space-y-4 rounded-3xl bg-white p-5 leading-7 shadow-sm">
+      <p>Reserve de 5 a 10 minutos por sessão, em um local com poucas distrações. Use pedaços pequenos de alimento seguro ou outra recompensa que seu cão adore.</p>
+      <p><b>Marque o acerto:</b> diga “isso!” ou use um clicker no instante em que o comportamento desejado acontecer; em seguida, entregue a recompensa.</p>
+      <p><b>Faça pausas:</b> se o cão se afastar, bocejar repetidamente, ficar tenso ou perder o interesse, encerre e tente mais tarde com uma tarefa mais fácil.</p>
+      <p><b>Progresso:</b> os dados ficam guardados no armazenamento local deste navegador e dispositivo. Limpar os dados do navegador ou trocar de aparelho pode apagar ou não transferir o progresso.</p>
+      <p class="text-sm text-gray-500">Este guia é educativo e não substitui avaliação veterinária ou acompanhamento comportamental individualizado.</p>
+    </div>
+  </section>
+</main>
+
+<nav class="fixed bottom-0 z-40 w-full border-t border-black/5 bg-white/95 pb-[env(safe-area-inset-bottom)] backdrop-blur">
+  <div class="app-shell mx-auto grid max-w-3xl grid-cols-4 px-2 py-2">
+    <button onclick="showView('home')" class="nav-btn rounded-xl px-1 py-2 text-center text-xs font-semibold text-gray-500"><span class="block text-xl">🏡</span>Início</button>
+    <button onclick="showView('track')" class="nav-btn rounded-xl px-1 py-2 text-center text-xs font-semibold text-gray-500"><span class="block text-xl">🗓️</span>Minha trilha</button>
+    <button onclick="showView('quick')" class="nav-btn rounded-xl px-1 py-2 text-center text-xs font-semibold text-gray-500"><span class="block text-xl">💡</span>Soluções</button>
+    <button onclick="showView('about')" class="nav-btn rounded-xl px-1 py-2 text-center text-xs font-semibold text-gray-500"><span class="block text-xl">📖</span>Como usar</button>
+  </div>
+</nav>
+<div id="toast" class="fixed bottom-24 left-1/2 z-[110] hidden -translate-x-1/2 rounded-2xl bg-[#263c29] px-5 py-3 text-sm font-bold text-white shadow-xl" role="status" aria-live="polite"></div>
+
+<script>
+/* Conteúdo das aulas: altere este array para personalizar a trilha. */
+const lessons = [
+{title:"Atenção e contato visual",phase:1,goal:"Ensinar seu cão que prestar atenção em você vale a pena.",time:"5 minutos",steps:["Prepare 10 a 15 pedacinhos pequenos de recompensa.","Diga o nome uma vez em um ambiente tranquilo; espere ele olhar na sua direção.","No instante em que olhar, diga “isso!” e ofereça a recompensa.","Repita algumas vezes e termine antes de ele perder o interesse."],tip:"Não repita o nome sem parar nem force o contato visual. Recompense qualquer orientação espontânea para você.",video:"Demonstração sugerida: tutor diz o nome uma vez, marca o olhar com “isso!” e recompensa."},
+{title:"Carregando a palavra de recompensa",phase:1,goal:"Criar uma associação clara entre uma palavra curta e algo bom.",time:"5 minutos",steps:["Escolha uma palavra, como “isso!”, e mantenha-a sempre igual.","Diga a palavra e imediatamente entregue um petisco.","Faça de 8 a 10 repetições, com pequenas pausas.","Teste em outro momento: marque um comportamento simples e recompense."],tip:"A palavra deve vir no momento exato do acerto, não vários segundos depois."},
+{title:"Seguir a mão",phase:1,goal:"Convidar o cão a acompanhar sua mão sem empurrá-lo.",time:"5–7 minutos",steps:["Mostre a palma da mão perto do focinho, sem encostar.","Quando ele se aproximar para cheirar, marque e recompense.","Mova a mão lentamente por poucos centímetros e recompense se seguir.","Faça pausas e repita em direções diferentes."],tip:"Não use a mão para empurrar o focinho nem prenda o cão para ele obedecer."},
+{title:"Aprendendo a sentar",phase:1,goal:"Reforçar o movimento natural de sentar.",time:"5 minutos",steps:["Com o cão em pé, segure a recompensa perto do nariz.","Mova a mão lentamente para cima e um pouco para trás.","Quando o bumbum tocar o chão, marque e recompense.","Depois de várias repetições, acrescente “senta” antes do gesto."],tip:"Não empurre o traseiro para baixo. Se não funcionar, mova a mão mais devagar."},
+{title:"Deitar com tranquilidade",phase:1,goal:"Recompensar o cão por baixar o corpo de forma confortável.",time:"5–7 minutos",steps:["Peça o “senta” em um piso confortável.","Aproxime a recompensa do focinho e mova-a lentamente até o chão.","Quando os cotovelos se aproximarem do chão, marque e recompense.","Repita em sessões curtas; use a palavra “deita” quando o movimento estiver previsível."],tip:"Não puxe as patas nem force o corpo. Alguns cães precisam de mais espaço ou de uma superfície macia."},
+{title:"Pausa e autocontrole",phase:1,goal:"Ensinar pequenas pausas sem exigir imobilidade longa.",time:"5 minutos",steps:["Peça um comportamento fácil, como sentar.","Espere apenas um segundo antes de marcar e recompensar.","Repita aumentando o intervalo muito gradualmente.","Se levantar, recomece com um intervalo mais curto, sem repreender."],tip:"Autocontrole se constrói aos poucos. Não transforme o exercício em uma disputa."},
+{title:"Revisão da primeira semana",phase:1,goal:"Revisar atenção, sentar e deitar em um clima divertido.",time:"5–10 minutos",steps:["Faça duas repetições de atenção pelo nome.","Peça “senta” e recompense o acerto.","Se estiver confortável, pratique “deita” uma ou duas vezes.","Termine com brincadeira ou uma atividade de que ele goste."],tip:"Se algum fundamento ainda estiver difícil, continue praticando-o antes de aumentar a exigência."},
+{title:"Vem: primeiro chamado",phase:2,goal:"Fazer o cão gostar de se aproximar quando chamado.",time:"5–7 minutos",steps:["Comece dentro de casa, a curta distância.","Diga “vem!” uma vez com voz alegre e recue alguns passos.","Quando ele chegar, marque, recompense generosamente e elogie.","Faça poucas repetições e nunca chame para algo desagradável."],tip:"Não teste sem guia em locais abertos. O chamado precisa ser treinado com segurança."},
+{title:"Vem com pequenas distrações",phase:2,goal:"Praticar o chamado quando há distrações leves e controladas.",time:"5–10 minutos",steps:["Escolha um cômodo um pouco mais movimentado.","Chame quando o cão não estiver muito concentrado em outra coisa.","Recompense ao chegar; use uma recompensa de maior valor se necessário.","Se ignorar, aproxime-se e reduza a dificuldade em vez de repetir o chamado."],tip:"Não aumente distância e distração ao mesmo tempo."},
+{title:"Fica por um segundo",phase:2,goal:"Introduzir uma pausa breve enquanto você permanece perto.",time:"5 minutos",steps:["Peça “senta” em um local tranquilo.","Mostre a palma da mão e espere um segundo.","Volte a marcar e recompensar enquanto ele ainda está na posição.","Libere com uma palavra como “pronto” e aumente o tempo aos poucos."],tip:"Não se afaste ainda. Primeiro ensine a ideia de permanecer por um instante."},
+{title:"Fica com um passo",phase:2,goal:"Adicionar um pequeno movimento sem pressionar o cão.",time:"5–7 minutos",steps:["Peça “fica” por um segundo, com você ao lado.","Dê meio passo para trás e retorne imediatamente.","Se ele permanecer, marque e recompense; depois libere.","Se levantar, reduza para um movimento menor."],tip:"Retorne para recompensar. Não chame o cão para sair do “fica” a cada repetição."},
+{title:"Andar junto sem puxar",phase:2,goal:"Reforçar momentos em que a guia fica frouxa.",time:"5–10 minutos",steps:["Pratique em casa ou em um local seguro com guia.","Dê alguns passos; quando a guia estiver frouxa, marque e recompense perto de você.","Se a guia esticar, pare ou mude de direção suavemente, sem tranco.","Recomece em um ritmo que o cão consiga acompanhar."],tip:"Nunca dê puxões na guia. Em locais públicos, priorize distância de estímulos e segurança."},
+{title:"Quatro patas no chão",phase:2,goal:"Ensinar uma alternativa ao pulo para conseguir atenção.",time:"5–10 minutos",steps:["Pratique com uma pessoa conhecida e calma.","Antes que o cão pule, recompense quando estiver com as quatro patas no chão.","Se pular, a pessoa pode virar-se e retirar a atenção por um instante, sem assustá-lo.","Quando voltar ao chão, marque e recompense imediatamente."],tip:"Não empurre, grite ou dê joelhadas. Gerencie a chegada das visitas para evitar ensaios de pulo."},
+{title:"Revisão da segunda semana",phase:2,goal:"Combinar chamado, pausa e caminhada em nível fácil.",time:"5–10 minutos",steps:["Faça duas chamadas curtas dentro de casa.","Pratique um “fica” de um segundo com você perto.","Dê alguns passos recompensando a guia frouxa.","Encerre com uma atividade agradável."],tip:"Não transforme a revisão em prova. Ajude o cão a acertar."},
+{title:"Toque na mão",phase:3,goal:"Ensinar o cão a encostar o focinho na palma da mão.",time:"5 minutos",steps:["Apresente a palma aberta a poucos centímetros do focinho.","Quando ele cheirar ou tocar a mão, marque e recompense.","Afaste a mão um pouco e repita.","Depois, use o toque para convidá-lo a mudar de posição."],tip:"Não aproxime a mão rapidamente do rosto. Deixe o cão escolher se aproximar."},
+{title:"Vai para o tapete",phase:3,goal:"Criar uma estação tranquila onde o cão recebe recompensas.",time:"5–7 minutos",steps:["Coloque um tapete antiderrapante no chão.","Recompense qualquer olhar, aproximação ou pata no tapete.","Quando subir, entregue algumas recompensas no próprio tapete.","Libere com “pronto” e repita em sessões curtas."],tip:"Não use o tapete como castigo nem force o cão a permanecer nele."},
+{title:"Espera antes de pegar",phase:3,goal:"Treinar uma espera curtíssima antes de receber um objeto seguro.",time:"5 minutos",steps:["Segure um brinquedo ou petisco adequado, fora do alcance imediato.","Espere um instante de calma; marque e entregue a recompensa ou libere o brinquedo.","Repita sem provocar frustração.","Aumente a espera apenas se o cão continuar relaxado."],tip:"Não retire alimento da boca nem pratique com objetos perigosos ou disputados."},
+{title:"Truque divertido: girar",phase:3,goal:"Ensinar um giro suave como atividade de enriquecimento.",time:"5 minutos",steps:["Com uma recompensa junto ao focinho, guie um arco pequeno para um lado.","Recompense qualquer movimento que siga a mão.","Aumente gradualmente até completar um giro confortável.","Pratique para o outro lado em outro momento, se ele estiver bem."],tip:"Evite giros repetidos se o cão for muito jovem, idoso, tiver dor ou dificuldade de equilíbrio."},
+{title:"Combinação de dois comandos",phase:3,goal:"Alternar comportamentos já conhecidos sem acelerar.",time:"5–8 minutos",steps:["Peça um “senta” fácil e recompense.","Faça uma pausa curta e peça “toque” ou “vem”.","Recompense cada acerto separadamente.","Termine com o comando de que ele mais gosta."],tip:"Se errar duas vezes seguidas, volte a treinar cada habilidade isoladamente."},
+{title:"Treino em outro ambiente",phase:3,goal:"Generalizar uma habilidade em um lugar novo e seguro.",time:"5–10 minutos",steps:["Escolha um cômodo diferente ou uma área externa tranquila e cercada.","Comece com um comando muito fácil.","Use recompensas melhores se o ambiente tiver mais distrações.","Termine antes de o cão ficar cansado ou sobrecarregado."],tip:"Ambientes novos são mais difíceis. Não espere o mesmo desempenho imediatamente."},
+{title:"Plano para continuar",phase:3,goal:"Celebrar o progresso e escolher os hábitos que continuarão na rotina.",time:"5–10 minutos",steps:["Escolha os três exercícios que mais ajudaram vocês.","Repita cada um em uma sessão curta e positiva.","Anote uma situação real em que quer praticar com segurança.","Planeje três a cinco sessões curtas por semana para manter os hábitos."],tip:"21 dias são um começo, não uma garantia de comportamento perfeito. Cada cão tem seu próprio ritmo."}
+];
+
+const phases = [
+{title:"Semana 1 · Fundamentos e foco",range:"Dias 1–7",desc:"Atenção, recompensa e comandos iniciais"},
+{title:"Semana 2 · Controle e comandos",range:"Dias 8–14",desc:"Chamado, fica, guia e boas-vindas"},
+{title:"Semana 3 · Confiança e truques",range:"Dias 15–21",desc:"Novas habilidades e rotina de manutenção"}
+];
+const STORAGE_KEY = "caoObediente21_v1";
+let state = loadState();
+let currentDay = 1;
+function loadState(){try{const x=JSON.parse(localStorage.getItem(STORAGE_KEY)||"{}");return {completed:Array.isArray(x.completed)?x.completed.filter(n=>Number.isInteger(n)&&n>=1&&n<=21):[],checks:x.checks&&typeof x.checks==="object"?x.checks:{},started:!!x.started,dates:x.dates&&typeof x.dates==="object"?x.dates:{}}}catch(e){return {completed:[],checks:{},started:false,dates:{}}}}
+function saveState(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(state))}catch(e){toast("Não foi possível salvar. Verifique o armazenamento do navegador.")}}
+function isUnlocked(day){return day===1||state.completed.includes(day-1)||state.completed.includes(day)}
+function showView(name){document.querySelectorAll("main section[id$='View']").forEach(s=>s.classList.add("hidden"));const el=document.getElementById(name+"View");if(el)el.classList.remove("hidden");document.querySelectorAll(".nav-btn").forEach(b=>b.classList.remove("bg-[#edf1e9]","text-[#344b35]"));const idx={home:0,track:1,quick:2,about:3}[name];if(idx!==undefined){const btn=document.querySelectorAll(".nav-btn")[idx];btn.classList.add("bg-[#edf1e9]","text-[#344b35]")}if(name==="track")renderTrack();if(name==="quick")renderQuick();window.scrollTo({top:0,behavior:"smooth"})}
+function startChallenge(){state.started=true;saveState();showView("track")}
+function togglePain(btn){const answer=btn.querySelector(".pain-answer");answer.classList.toggle("hidden")}
+function renderTrack(){
+ const done=state.completed.length,pct=Math.round(done/21*100),unlocked=state.completed.includes(21)?21:Math.max(1,...state.completed,0)+1;
+ document.getElementById("progressText").textContent=`${done} de 21 dias concluídos`;document.getElementById("progressPct").textContent=pct+"%";document.getElementById("progressBar").style.width=pct+"%";document.getElementById("completedCount").textContent=done;document.getElementById("unlockedCount").textContent=unlocked;document.getElementById("streakCount").textContent=calculateStreak();
+ const grid=document.getElementById("daysGrid");grid.innerHTML="";
+ phases.forEach((phase,pi)=>{const wrap=document.createElement("div");wrap.innerHTML=`<div class="mb-3"><h2 class="text-lg font-extrabold text-[#344b35]">${phase.title}</h2><p class="text-sm text-gray-500">${phase.range} · ${phase.desc}</p></div><div class="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7" data-phase="${pi}"></div>`;grid.appendChild(wrap);const cards=wrap.querySelector("[data-phase]");for(let d=pi*7+1;d<=pi*7+7;d++){const lesson=lessons[d-1],doneDay=state.completed.includes(d),locked=!doneDay&&!isUnlocked(d);const b=document.createElement("button");b.className="day-card rounded-2xl border p-3 text-left shadow-sm "+(doneDay?"border-green-200 bg-green-50":locked?"border-gray-100 bg-gray-100":"border-amber-300 bg-white ring-2 ring-amber-100 hover:-translate-y-0.5 hover:shadow-md");b.disabled=locked;b.setAttribute("aria-label",`Dia ${d}: ${lesson.title}${locked?", bloqueado":""}`);b.innerHTML=`<div class="flex items-center justify-between"><span class="text-xs font-extrabold uppercase tracking-wider ${doneDay?"text-green-700":"text-gray-500"}">Dia ${d}</span><span>${doneDay?"✅":locked?"🔒":"🟠"}</span></div><p class="mt-3 text-sm font-bold leading-5 ${locked?"text-gray-500":"text-[#344b35]"}">${lesson.title}</p><p class="mt-2 text-xs ${doneDay?"text-green-700":"text-gray-500"}">${doneDay?"Concluído":locked?"Conclua o anterior":"⏱ "+lesson.time}</p>`;b.onclick=()=>openLesson(d);cards.appendChild(b)}});
+}
+function calculateStreak(){if(!state.completed.length)return 0;const dates=Object.values(state.dates).filter(Boolean).sort().reverse();if(!dates.length)return 0;let streak=0,day=new Date();day.setHours(0,0,0,0);const today=day.toISOString().slice(0,10);const yesterday=new Date(day);yesterday.setDate(yesterday.getDate()-1);let target=dates.includes(today)?day:yesterday;for(let i=0;i<30;i++){const key=target.toISOString().slice(0,10);if(dates.includes(key)){streak++;target.setDate(target.getDate()-1)}else break}return streak}
+function openLesson(day){if(!isUnlocked(day)&&!state.completed.includes(day)){toast("Conclua o dia anterior para liberar este exercício.");return}currentDay=day;renderLesson(day);showView("lesson")}
+function renderLesson(day){const l=lessons[day-1],done=state.completed.includes(day),checked=state.checks[day]||[];const el=document.getElementById("lessonContent");el.innerHTML=`<div class="overflow-hidden rounded-3xl bg-[#344b35] p-6 text-white shadow-lg md:p-8"><span class="inline-flex rounded-full bg-white/15 px-3 py-1 text-xs font-bold">${phases[l.phase-1].title}</span><p class="mt-4 text-sm font-bold text-amber-300">DIA ${day} DE 21 · ${l.time}</p><h1 class="mt-2 text-3xl font-extrabold leading-tight md:text-4xl">${l.title}</h1><p class="mt-3 max-w-2xl text-sm leading-6 text-white/80">${l.goal}</p></div>
+<div class="mt-5 grid gap-5 lg:grid-cols-[1.15fr_.85fr]"><div class="space-y-5">
+<div class="rounded-3xl bg-white p-5 shadow-sm"><h2 class="text-lg font-extrabold text-[#344b35]">🎬 Demonstração do exercício</h2><div class="mt-4 grid min-h-44 place-items-center rounded-2xl bg-gradient-to-br from-[#e8eddf] to-[#f8e8c9] p-6 text-center"><div><span class="text-5xl">🐕‍🦺</span><p class="mt-3 font-bold text-[#344b35]">Veja o movimento com calma</p><p class="mt-1 text-sm text-gray-600">${l.video}</p><p class="mt-3 text-xs text-gray-500">Área demonstrativa — nenhum vídeo externo está incorporado.</p></div></div></div>
+<div class="rounded-3xl bg-white p-5 shadow-sm"><div class="flex items-start justify-between gap-3"><div><h2 class="text-lg font-extrabold text-[#344b35]">Seu passo a passo</h2><p class="mt-1 text-sm text-gray-500">Marque cada etapa ao realizá-la.</p></div><span class="rounded-xl bg-[#edf1e9] px-3 py-2 text-xs font-bold text-[#344b35]" id="stepCount">${checked.length}/${l.steps.length}</span></div><div class="mt-4 space-y-4" id="checklist">${l.steps.map((s,i)=>`<label class="check-row flex cursor-pointer items-start gap-3 rounded-xl border border-gray-100 p-3 hover:bg-gray-50"><input type="checkbox" ${checked.includes(i)?"checked":""} onchange="toggleStep(${day},${i},this.checked)" class="mt-0.5"><span class="text-sm leading-6">${s}</span></label>`).join("")}</div></div></div>
+<div class="space-y-5"><div class="rounded-3xl border border-amber-200 bg-amber-50 p-5"><h2 class="font-extrabold text-amber-950">⭐ Dica de ouro</h2><p class="mt-2 text-sm leading-6 text-amber-950">${l.tip}</p></div><div class="rounded-3xl bg-white p-5 shadow-sm"><h2 class="font-extrabold text-[#344b35]">Antes de começar</h2><ul class="mt-3 space-y-2 text-sm leading-6 text-gray-600"><li>• Ambiente tranquilo e seguro.</li><li>• Recompensas pequenas e adequadas ao seu cão.</li><li>• Sessão curta, com pausas e sem pressão.</li></ul></div><button onclick="completeLesson(${day})" class="w-full rounded-2xl ${done?"bg-green-700":"bg-[#344b35]"} px-5 py-4 font-extrabold text-white shadow-lg hover:bg-[#58734f]">${done?"✓ Exercício concluído — revisar":"Concluir exercício de hoje ✓"}</button><p class="text-center text-xs leading-5 text-gray-500">Só marque como concluído quando terminar ou decidir que já praticou o suficiente.</p></div></div>`}
+function toggleStep(day,index,checked){const arr=new Set(state.checks[day]||[]);checked?arr.add(index):arr.delete(index);state.checks[day]=[...arr];saveState();const count=state.checks[day].length;const el=document.getElementById("stepCount");if(el)el.textContent=`${count}/${lessons[day-1].steps.length}`}
+function completeLesson(day){if(!state.completed.includes(day)){state.completed.push(day);state.completed.sort((a,b)=>a-b);state.dates[day]=new Date().toISOString().slice(0,10);saveState();confetti();toast(day===21?"Parabéns! Você completou a trilha de 21 dias!":"Muito bem! Próximo dia liberado.");}else toast("Este exercício já está marcado como concluído.");renderLesson(day)}
+function confetti(){const colors=["#f2a541","#6c8a5d","#e7b6a1","#d7e5c5","#ffffff"];for(let i=0;i<45;i++){const c=document.createElement("i");c.className="confetti";c.style.left=Math.random()*100+"vw";c.style.background=colors[Math.floor(Math.random()*colors.length)];c.style.animationDelay=Math.random()*.5+"s";c.style.transform=`rotate(${Math.random()*180}deg)`;document.body.appendChild(c);setTimeout(()=>c.remove(),2400)}}
+let toastTimer;function toast(msg){const t=document.getElementById("toast");t.textContent=msg;t.classList.remove("hidden");t.classList.add("toast");clearTimeout(toastTimer);toastTimer=setTimeout(()=>t.classList.add("hidden"),2600)}
+function resetProgress(){if(confirm("Tem certeza de que deseja apagar todos os dias concluídos e checklists deste navegador?")){state={completed:[],checks:{},started:false,dates:{}};saveState();renderTrack();toast("Progresso reiniciado.")}}
+const quickData=[
+{title:"Como reduzir os pulos nas visitas",icon:"🚪",body:["Antes de abrir a porta, deixe petiscos à mão e, se necessário, use uma barreira ou guia para manter todos seguros.","Recompense o cão quando estiver com as quatro patas no chão. Peça às visitas que deem atenção apenas quando ele estiver mais calmo.","Faça chegadas simuladas com alguém conhecido e aumente a dificuldade aos poucos. Se ele ficar muito excitado, aumente a distância e dê uma pausa."]},
+{title:"Ele ignora o chamado na rua",icon:"🦮",body:["Não o solte em áreas sem contenção confiável. Use uma guia longa apenas em espaço adequado e com manejo seguro.","Volte a praticar “vem” dentro de casa e depois em locais cercados com poucas distrações.","Chame uma vez em um momento fácil e recompense muito bem quando chegar. Não use o chamado para encerrar sempre algo divertido."]},
+{title:"Mordidinhas leves de filhote",icon:"🧸",body:["Mantenha um brinquedo apropriado por perto e redirecione a mordida para ele, recompensando quando o filhote o usar.","Se a mordida aumentar, interrompa calmamente a brincadeira por alguns segundos e ofereça uma pausa para descanso.","Evite gritar, bater ou segurar o focinho. Mordidas fortes, persistentes ou acompanhadas de medo/agressividade exigem orientação profissional."]}
+];
+function renderQuick(){const root=document.getElementById("quickSolutions");root.innerHTML=quickData.map((q,i)=>`<article class="overflow-hidden rounded-2xl bg-white shadow-sm"><button class="flex w-full items-center gap-3 p-4 text-left" onclick="toggleQuick(${i})" aria-expanded="false" id="quickBtn${i}"><span class="grid h-11 w-11 flex-shrink-0 place-items-center rounded-xl bg-[#edf1e9] text-2xl">${q.icon}</span><span class="flex-1 font-extrabold text-[#344b35]">${q.title}</span><span id="quickArrow${i}" class="text-gray-400">＋</span></button><div id="quickBody${i}" class="hidden px-5 pb-5"><ol class="list-decimal space-y-2 pl-5 text-sm leading-6 text-gray-600">${q.body.map(x=>`<li>${x}</li>`).join("")}</ol></div></article>`).join("")}
+function toggleQuick(i){const body=document.getElementById("quickBody"+i),btn=document.getElementById("quickBtn"+i),open=body.classList.contains("hidden");body.classList.toggle("hidden");btn.setAttribute("aria-expanded",String(open));document.getElementById("quickArrow"+i).textContent=open?"−":"＋"}
+renderQuick();
+if(state.started)showView("track");else showView("home");
+</script>
+</body>
+</html>
